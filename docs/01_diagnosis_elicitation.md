@@ -16,3 +16,20 @@
 | P-010 | R10    | "User-friendly" is not measurable              | No criteria provided                                   |
 | P-011 | Notes  | Stakeholders are inconsistent across sources   | Need to be consistent/defined to assign responsability |
 | P-012 | Notes  | Integrations/dependencies not fully documented | Needed for successful transfer                         |
+
+## Elicitation questions
+
+| ID    | Topic              | Question                                                        | Target stakeholder |
+|-------|--------------------|-----------------------------------------------------------------|--------------------|
+| Q-001 | Business           | What does "ready for AMS support" mean?                         | Client Manager     |
+| Q-002 | Evidence           | What is the missing critical information?                       | Transition Lead    |
+| Q-003 | Business           | What are minimum the delivery requirements for next week?       | Client Manager     |
+| Q-004 | Security           | What actions can each role perform?                             | Security Officer   |
+| Q-005 | AMS Operation      | Who owns each dashboard?                                        | Ops Engineer       |
+| Q-006 | Reporting          | What format should the 90-day summary and recommendations have? | Transition Lead    |
+| Q-007 | Testing/Validation | What is available to use as test data?                          | Developer          |
+| Q-008 | Risk/Continuity    | What risk metrics will be used?                                 | Transition Lead    |
+| Q-009 | Evidence           | Who is responsible for registering evidence?                    | Ops Engineer       |
+| Q-010 | Evidence           | What happens when evidence is missing/stale?                    | Transition Lead    |
+| Q-011 | Security           | Is role based security sufficient?                              | Security Officer   |
+| Q-012 | AMS operation      | Which operational areas must be prioritised?                    | Service Owner      |
