@@ -9,7 +9,7 @@ This repository contains the work developed for the resit exam of Requirements E
 
 ## Work plan
 - Day 1: Repository structure setup; Diagnosis and elicitation started
-- Day 2:
+- Day 2: Diagnosis and elicitation complete;
 - Day 3:
 - Day 4:
 - Day 5:
@@ -17,9 +17,9 @@ This repository contains the work developed for the resit exam of Requirements E
 - Day 7:
 
 ## Use of AI tools
-- AI tool(s) used:
-- What AI was used for:
-- What was manually reviewed/changed:
+- AI tool(s) used:  Claude (Anthropic)
+- What AI was used for: Reviewing and refining the wording of Deliverable 1
+- What was manually reviewed/changed: Everything was initialy drafted by me and iterated based on AI feedback (formating (use '!' instead of '|'), spelling insufficient justifications)
 - Main assumptions introduced:
 - Main limitations observed:
 
