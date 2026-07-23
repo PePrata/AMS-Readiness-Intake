@@ -20,7 +20,7 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
 
 ## Structured requirements
 
-### REQ-001 — Create a readiness assessment
+### REQ-001 - Create a readiness assessment
 - Type: Functional
 - Stakeholder: Transition Lead
 - Priority: High
@@ -32,7 +32,7 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
   - AC-2: The assessment records a creation date and creator.
 - Validation method: Demo
 
-### REQ-002 — Add intake answers to readiness questions
+### REQ-002 - Add intake answers to readiness questions
 - Type: Functional
 - Stakeholder: Contributor
 - Priority: High
@@ -44,7 +44,7 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
   - AC-2: Answers are saved against the corresponding assessment.
 - Validation method: Test
 
-### REQ-003 — Attach evidence metadata to an answer
+### REQ-003 - Attach evidence metadata to an answer
 - Type: Functional
 - Stakeholder: Contributor
 - Priority: High
@@ -56,7 +56,7 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
   - AC-2: Multiple evidence items can be linked to the same answer.
 - Validation method: Test
 
-### REQ-004 — Flag missing or stale critical evidence
+### REQ-004 - Flag missing or stale critical evidence
 - Type: Functional
 - Stakeholder: Transition Lead, AMS Manager
 - Priority: High
@@ -68,7 +68,7 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
   - AC-2: Critical questions without linked evidence are listed as "missing critical information".
 - Validation method: Test
 
-### REQ-005 — Restrict final submission to the Transition Lead role
+### REQ-005 - Restrict final submission to the Transition Lead role
 - Type: Functional
 - Stakeholder: Security Officer
 - Priority: High
@@ -80,7 +80,7 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
   - AC-2: Attempts by other roles to submit are rejected with a clear message.
 - Validation method: Test
 
-### REQ-006 — Provide a summary of missing critical information and recommendations
+### REQ-006 - Provide a summary of missing critical information and recommendations
 - Type: Functional
 - Stakeholder: Transition Lead, AMS Manager
 - Priority: Medium
@@ -92,7 +92,7 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
   - AC-2: The summary is viewable by Transition Lead and AMS Manager roles.
 - Validation method: Demo
 
-### REQ-007 — Response time for readiness summary generation
+### REQ-007 - Response time for readiness summary generation
 - Type: Non-functional
 - Stakeholder: AMS Manager
 - Priority: Medium
@@ -103,7 +103,7 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
   - AC-1: Summary generation completes in under 3 seconds measured in at least 4 out of 5 test runs.
 - Validation method: Measurement
 
-### REQ-008 — Role-based access control
+### REQ-008 - Role-based access control
 - Type: Non-functional
 - Stakeholder: Security Officer
 - Priority: High
@@ -115,7 +115,7 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
   - AC-2: Unauthorized actions return a rejection instead of being silently ignored.
 - Validation method: Test
 
-### REQ-009 — Usability of the intake form
+### REQ-009 - Usability of the intake form
 - Type: Non-functional
 - Stakeholder: Contributor
 - Priority: Medium
@@ -127,7 +127,7 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
   - AC-2: No external documentation required to complete the task.
 - Validation method: Review
 
-### REQ-010 — Persistence constraint
+### REQ-010 - Persistence constraint
 - Type: Constraint
 - Stakeholder: Developer, Service Owner
 - Priority: High
@@ -137,3 +137,14 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
 - Acceptance Criteria:
   - AC-1: All application data is stored in either a SQLite database or JSON files.
 - Validation method: Review
+
+
+## Rewrite of initial poor requirements
+
+| Original                         | Problem                      | Rewritten version                                                  | Justification |
+|----------------------------------|------------------------------|--------------------------------------------------------------------------------|---|
+| R1: The system must be fast      | Not measurable, no threshold | REQ-007: Readiness summary must generate in under 3 seconds for up to 50 items | Adds testable threshold and defines "fast" |
+| R3: The system should be secure  | Not measurable, too broad    | REQ-008: Role-based access control enforced for all 4 roles | Defines "secure" into a testable access-control rule |
+| R4: Create a dashboard           | Solution, not a need         | REQ-006: Provide a summary of missing critical information and recommendations | States the business need instead of a solution |
+| R6: The app must allow evidence  | Unclear, missing fields      | REQ-003: Attach evidence metadata (source, owner, freshness date) to an answer | Adds the mandatory fields defined in the case constraints making it testable |
+| R8: Use Microsoft authentication | Solution not a need          | REQ-005/REQ-008: Restrict submission to Transition Lead role; enforce role-based access control | Replaces specific technology choice with access-control need |
