@@ -8,7 +8,7 @@
 This repository contains the work developed for the resit exam of Requirements Engineering and Testing.
 
 ## Work plan
-- Day 1:
+- Day 1: Repository structure setup; Diagnosis and elicitation completed
 - Day 2:
 - Day 3:
 - Day 4:
