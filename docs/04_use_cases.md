@@ -2,4 +2,4 @@
 
 ## Use Case Diagram
 
-![use case](images/use_case.svg)
+![use case](../images/use_case.svg)
