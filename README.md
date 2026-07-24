@@ -10,7 +10,7 @@ This repository contains the work developed for the resit exam of Requirements E
 ## Work plan
 - Day 1: Repository structure setup; Diagnosis and elicitation started
 - Day 2: Diagnosis and elicitation complete; Objectives, CSFs and Requirements complete, Macro Mezzo Micro model complete
-- Day 3: Use cases complete
+- Day 3: Use cases complete; User stories and story split complete
 - Day 4:
 - Day 5:
 - Day 6:
