@@ -10,18 +10,18 @@ This repository contains the work developed for the resit exam of Requirements E
 ## Work plan
 - Day 1: Repository structure setup; Diagnosis and elicitation started
 - Day 2: Diagnosis and elicitation complete; Objectives, CSFs and Requirements complete, Macro Mezzo Micro model complete
-- Day 3: Use cases complete; User stories and story split complete; Test Cases, BDD and validation complete
+- Day 3: Use cases complete; User stories and story split complete; Test Cases, BDD and validation complete; Traceability matrix (incomplete) and explanation
 - Day 4:
 - Day 5:
 - Day 6:
 - Day 7:
 
 ## Use of AI tools
-- AI tool(s) used: Claude (Anthropic)
-- What AI was used for: Reviewing and refining the wording of documents
-- What was manually reviewed/changed: Everything was initially drafted by me and iterated based on AI feedback (formatting - e.g. using '!' instead of '|', spelling, insufficient justifications)
-- Main assumptions introduced: A 5-interaction limit was assumed as the usability threshold for REQ-009; For UC-005, it was assumed that submission is blocked when critical items are missing.
-- Main limitations observed: Requires review of assumptions made due to leaps of logic introduced
+- AI tool(s) used:
+- What AI was used for:
+- What was manually reviewed/changed:
+- Main assumptions introduced:
+- Main limitations observed:
 
 ## Data architecture
 - Persistence option used: SQLite / JSON
