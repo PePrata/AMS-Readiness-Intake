@@ -103,6 +103,28 @@
   2. Open the assessment summary view.
 - Expected result: The summary lists the missing item, the stale evidence item, and shows a recommended action for each.
 
+## TC-010 — Audit entry created when evidence is attached (Happy path)
+- Linked REQ/US: REQ-011 / US-006
+- Type: Integration
+- Priority: High
+- Preconditions: Contributor is answering a readiness question on an existing draft assessment.
+- Test data: Valid evidence (source, owner, freshness date) attached by a Contributor.
+- Steps:
+  1. Contributor attaches evidence to an answer.
+  2. Transition Lead opens the audit trail for the assessment.
+- Expected result: A new audit entry exists recording actor=Contributor, action=CREATE, entity=Evidence, timestamp and the new value.
+
+## TC-011 — Audit log entry cannot be edited or deleted (Negative / security)
+- Linked REQ/US: REQ-012 / US-006
+- Type: Integration
+- Priority: High
+- Preconditions: At least one audit log entry already exists for an assessment.
+- Test data: Existing audit entry from a previous Evidence creation.
+- Steps:
+  1. Attempt to edit an existing audit log entry directly (UI or API call).
+  2. Attempt to delete an existing audit log entry.
+- Expected result: Both attempts are rejected; the audit log entry remains unchanged, and no login/page-view or other unrelated event appears in the log.
+
 # Definition of Done
 
 ## DoD — Requirement

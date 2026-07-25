@@ -69,3 +69,14 @@ The original story contained two different behaviors with separate acceptance cr
 1: validating that no critical gaps remain 
 2: the actual submission itself. 
 Splitting them makes each story independently testable - US-005a can be verified with a negative test (submission blocked), while US-005b can be verified with a happy path test (submission succeeds).
+
+## US-006 — Review the audit trail 
+
+As a Transition Lead,
+I want to see a log of who created, changed or removed readiness assessment information and when,
+so that I can audit the decision process against applicable standards (e.g. ISO 9001 / ISO 19011).
+
+- Linked requirement(s): REQ-011, REQ-012
+- Acceptance Criteria:
+  - AC-1: Every create/update/delete action on Assessment, Answer or Evidence appears as one audit entry, with actor, role, action, timestamp and old/new value.
+  - AC-2: Audit entries cannot be edited or deleted through the application, and no unrelated system events appear in the log.

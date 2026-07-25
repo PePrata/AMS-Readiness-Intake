@@ -138,6 +138,29 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
   - AC-1: All application data is stored in either a SQLite database or JSON files.
 - Validation method: Review
 
+### REQ-011 - Audit log of readiness assessment changes
+- Type: Functional
+- Stakeholder: Transition Lead, Security Officer
+- Priority: High
+- Description: The system must record an audit log entry whenever information related to a readiness assessment (Assessment, Answer or Evidence) is created, changed or removed, capturing the actor, role, action type, affected entity/field, timestamp and previous/new value where applicable, so that the decision process can be audited (e.g. against ISO 9001 / ISO 19011 principles).
+- Linked objective: OBJ-02
+- Linked CSF: CSF-02
+- Acceptance Criteria:
+  - AC-1: Every create, update or delete action on Assessment, Answer or Evidence produces exactly one audit log entry.
+  - AC-2: Each audit log entry records actor, role, action type, entity affected, timestamp and old/new value (for updates).
+- Validation method: Test
+
+### REQ-012 - Audit log is append-only and scoped to readiness assessment data
+- Type: Non-functional / Constraint
+- Stakeholder: Security Officer
+- Priority: High
+- Description: The audit log must not behave as a generic system log. It must only record entry, change and removal of information about the AMS Readiness Assessment (Assessment, Answer, Evidence) - not unrelated events such as logins or page views - and existing entries must never be editable or deletable through the application.
+- Linked objective: OBJ-02
+- Linked CSF: CSF-02
+- Acceptance Criteria:
+  - AC-1: No UI or API action allows editing or deleting an existing audit log entry.
+  - AC-2: The audit log contains only entries related to Assessment/Answer/Evidence create/update/delete actions.
+- Validation method: Test
 
 ## Rewrite of initial poor requirements
 
