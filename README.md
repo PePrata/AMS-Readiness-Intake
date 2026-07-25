@@ -11,7 +11,7 @@ This repository contains the work developed for the resit exam of Requirements E
 - Day 1: Repository structure setup; Diagnosis and elicitation started
 - Day 2: Diagnosis and elicitation complete; Objectives, CSFs and Requirements complete, Macro Mezzo Micro model complete
 - Day 3: Use cases complete; User stories and story split complete; Test Cases, BDD and validation complete; Traceability matrix (incomplete) and explanation
-- Day 4: Data architecture rough draft; Traceability matrix baseline; Decision log added; Change request added and changes made (requirements, use cases, user stories, test cases, tracebility matrix, decision log, data architecture rough draft changed)
+- Day 4: Data architecture rough draft; Traceability matrix baseline; Decision log added; Change request added and changes made (requirements, use cases, user stories, test cases, tracebility matrix, decision log, data architecture rough draft changed); Add data architecture model
 - Day 5:
 - Day 6:
 - Day 7:
