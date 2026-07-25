@@ -92,6 +92,17 @@
   3. Attempt to submit as final.
 - Expected result: Action is rejected with an authorization error; assessment remains in "Draft" status.
 
+## TC-009 — Readiness summary lists all missing/stale items and recommendations (Happy path)
+- Linked REQ/US: REQ-006
+- Type: System
+- Priority: Medium
+- Preconditions: Assessment has at least one missing critical item and one stale evidence item.
+- Test data: Assessment with 1 missing critical question and 1 evidence item older than 90 days.
+- Steps:
+  1. Log in as Transition Lead.
+  2. Open the assessment summary view.
+- Expected result: The summary lists the missing item, the stale evidence item, and shows a recommended action for each.
+
 # Definition of Done
 
 ## DoD — Requirement
