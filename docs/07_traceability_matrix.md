@@ -7,7 +7,7 @@
 | OBJ-02    | CSF-01 | REQ-003     | UC-002/UC-003 | US-003 | AC-1, AC-2         | TC-003 / Scenario: Missing evidence metadata (readiness_intake_evidence.feature) | Answer, Evidence | AT-TBD |
 | OBJ-03    | CSF-03 | REQ-004     | UC-004   | US-004     | AC-1, AC-2          | TC-005, TC-006           | Evidence, Answer | AT-TBD         |
 | OBJ-02    | CSF-02 | REQ-005     | UC-005/UC-004 | US-005a, US-005b | AC-1, AC-2 | TC-002, TC-004 / Scenario: Missing evidence — submission is blocked (readiness_submission.feature) | Assessment, UserRole | AT-TBD |
-| OBJ-03    | CSF-03 | REQ-006     | UC-006   | —          | AC-1, AC-2          | TC-009 (missing)         | Assessment, Answer, Evidence | AT-TBD         |
+| OBJ-03    | CSF-03 | REQ-006     | UC-006   | —          | AC-1, AC-2          | TC-009                   | Assessment, Answer, Evidence | AT-TBD         |
 | OBJ-01    | CSF-01 | REQ-007     | UC-006   | —          | AC-1                | TC-007                   | Assessment, Answer, ReadinessQuestion, Evidence | — (NFR, manual measurement) |
 | OBJ-02    | CSF-02 | REQ-008     | UC-005   | US-005a    | AC-1, AC-2          | TC-008 / Scenario: Unauthorized user (readiness_submission.feature) | UserRole | AT-TBD |
 | OBJ-01    | CSF-01 | REQ-009     | UC-002   | US-002, US-003 | AC-1            | — (manual review only) | — | — |
