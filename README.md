@@ -11,7 +11,7 @@ This repository contains the work developed for the resit exam of Requirements E
 - Day 1: Repository structure setup; Diagnosis and elicitation started
 - Day 2: Diagnosis and elicitation complete; Objectives, CSFs and Requirements complete, Macro Mezzo Micro model complete
 - Day 3: Use cases complete; User stories and story split complete; Test Cases, BDD and validation complete; Traceability matrix (incomplete) and explanation
-- Day 4:
+- Day 4: Traceability matrix baseline; Decision log added
 - Day 5:
 - Day 6:
 - Day 7:
