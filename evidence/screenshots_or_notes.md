@@ -36,8 +36,6 @@
   saved value (form bound to `instance=existing`); saving again updates the same row and logs 
   an `AuditLog` entry with `action_type="UPDATE"` and the previous response as `old_value` 
   (per the manual fix applied — see Deliverable 11).
-  
-![answer](../images/answer3.png)
 
 ## 3. Attach evidence
 
@@ -52,7 +50,7 @@
     TC-006 (91 days = Stale).
 - An `AuditLog` entry is written with `action_type="CREATE"`, `entity_type="Evidence"`.
 
-![evidence](../images/evidence.png)
+![evidence](../images/evidence1.png)
 
 ## 4. Submit assessment
 
