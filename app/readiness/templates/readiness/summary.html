@@ -1,0 +1,124 @@
+{% extends "readiness/base.html" %}
+{% block title %}Summary — AMS Readiness{% endblock %}
+{% block content %}
+
+<h1>Assessment Summary (REQ-004, REQ-006)</h1>
+
+{% if current_role %}
+  <p><span class="badge badge-role">Acting as: {{ current_role.name }} ({{ current_role.role }})</span></p>
+{% endif %}
+
+{% if last_result %}
+  {% if last_result.success %}
+    <div class="alert alert-success"><strong>✔ Last submission result:</strong> {{ last_result.message }}</div>
+  {% else %}
+    <div class="alert alert-error"><strong>✖ Last submission result:</strong> {{ last_result.error }}</div>
+  {% endif %}
+{% endif %}
+
+{% if not assessment %}
+  <p class="alert alert-info">No assessment found. Run <code>python manage.py seed_data</code>.</p>
+{% else %}
+
+  <!-- ── Current status ── -->
+  <h2>Current Status</h2>
+  <table style="width:auto;">
+    <tr class="status-row"><td>Assessment #</td><td>{{ assessment.pk }}</td></tr>
+    <tr class="status-row">
+      <td>Status</td>
+      <td>
+        {% if assessment.status == "Submitted" %}
+          <span class="badge badge-submitted">Submitted</span>
+        {% else %}
+          <span class="badge badge-draft">Draft</span>
+        {% endif %}
+      </td>
+    </tr>
+    <tr class="status-row"><td>Created by</td><td>{{ assessment.created_by }}</td></tr>
+    <tr class="status-row"><td>Created on</td><td>{{ assessment.created_at }}</td></tr>
+    {% if assessment.submitted_by %}
+      <tr class="status-row"><td>Submitted by</td><td>{{ assessment.submitted_by }}</td></tr>
+      <tr class="status-row"><td>Submitted at</td><td>{{ assessment.submitted_at }}</td></tr>
+    {% endif %}
+    <tr class="status-row">
+      <td>Critical questions answered</td>
+      <td>{{ answered_count }} / {{ total_critical }}</td>
+    </tr>
+  </table>
+
+  <!-- ── Missing critical items ── -->
+  <h2>Critical Questions — Readiness Gaps</h2>
+  {% if missing %}
+    <p>
+      The following <strong>{{ missing|length }}</strong> critical question(s) are blocking
+      submission because they lack a valid, non-stale evidence item (REQ-004, REQ-006):
+    </p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Category</th><th>Question</th><th>Reason</th></tr>
+      </thead>
+      <tbody>
+        {% for item in missing %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ item.question.category }}</td>
+          <td>{{ item.question.text }}</td>
+          <td>
+            {% if item.reason == "not answered" %}
+              <span class="badge badge-critical">Not answered</span>
+            {% elif item.reason == "no evidence" %}
+              <span class="badge badge-critical">No evidence attached</span>
+            {% else %}
+              <span class="badge badge-critical">Evidence is stale (&gt;90 days)</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert alert-success">
+      ✔ All critical questions have at least one valid, fresh evidence item.
+      {% if assessment.status == "Draft" %}
+        A Transition Lead may now submit.
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <!-- ── Audit trail ── -->
+  <h2>Audit Trail</h2>
+  {% if audit_entries %}
+    <table>
+      <thead>
+        <tr><th>Timestamp</th><th>Actor</th><th>Role</th><th>Action</th><th>Entity</th><th>Field</th></tr>
+      </thead>
+      <tbody>
+        {% for entry in audit_entries %}
+        <tr>
+          <td>{{ entry.timestamp }}</td>
+          <td>{{ entry.actor }}</td>
+          <td>{{ entry.role }}</td>
+          <td>{{ entry.action_type }}</td>
+          <td>{{ entry.entity_type }} #{{ entry.entity_id }}</td>
+          <td>{{ entry.field_changed|default:"—" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No audit entries yet.</p>
+  {% endif %}
+
+  <!-- ── Staleness reference ── -->
+  <h2>Staleness Rule Reference (REQ-004 / DEC-004)</h2>
+  <table style="width:auto;">
+    <tr><td><strong>Threshold</strong></td><td>90 days (exclusive)</td></tr>
+    <tr><td>Exactly 90 days old</td><td><span class="badge badge-ok">Not stale</span></td></tr>
+    <tr><td>91+ days old</td><td><span class="badge badge-critical">Stale</span></td></tr>
+  </table>
+  <p><small>Implemented in <code>readiness/readiness_rules.py → is_evidence_stale()</code></small></p>
+
+{% endif %}
+
+<p><a href="{% url 'home' %}">← Back to Dashboard</a></p>
+{% endblock %}

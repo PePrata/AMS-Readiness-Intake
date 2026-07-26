@@ -1,0 +1,54 @@
+{% extends "readiness/base.html" %}
+{% block title %}Add Evidence — AMS Readiness{% endblock %}
+{% block content %}
+
+<h1>Add Evidence</h1>
+
+<p>
+  <strong>Question:</strong> {{ answer.question.text }}<br>
+  <strong>Response recorded:</strong> {{ answer.response }}
+</p>
+
+{% if current_role %}
+  <p><span class="badge badge-role">Acting as: {{ current_role.name }} ({{ current_role.role }})</span></p>
+{% endif %}
+
+<div class="alert alert-info">
+  <strong>REQ-003:</strong> Source, Owner, and Freshness Date are all required.
+  Missing any one of them will be rejected with a field-level error.
+</div>
+
+<form method="post">
+  {% csrf_token %}
+
+  {% if form.non_field_errors %}
+    <ul class="errorlist">{% for e in form.non_field_errors %}<li>{{ e }}</li>{% endfor %}</ul>
+  {% endif %}
+
+  <label for="{{ form.source.id_for_label }}">Source <span style="color:#c00">*</span></label>
+  {{ form.source }}
+  {% if form.source.errors %}<ul class="errorlist">{% for e in form.source.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+
+  <label for="{{ form.owner.id_for_label }}">Owner <span style="color:#c00">*</span></label>
+  {{ form.owner }}
+  {% if form.owner.errors %}<ul class="errorlist">{% for e in form.owner.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+
+  <label for="{{ form.freshness_date.id_for_label }}">Freshness Date <span style="color:#c00">*</span></label>
+  {{ form.freshness_date }}
+  <small style="color:#555;">
+    Evidence is stale when this date is <strong>more than 90 days ago</strong>
+    (91+ days = stale; exactly 90 days = fresh). REQ-004.
+  </small>
+  {% if form.freshness_date.errors %}<ul class="errorlist">{% for e in form.freshness_date.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+
+  <label for="{{ form.reference.id_for_label }}">Reference (URL or description)</label>
+  {{ form.reference }}
+  {% if form.reference.errors %}<ul class="errorlist">{% for e in form.reference.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+
+  <br><br>
+  <button type="submit" class="btn btn-primary">Save Evidence</button>
+  <a href="{% url 'answer_question' answer.question_id %}" class="btn btn-secondary" style="margin-left:.5rem;">Cancel</a>
+</form>
+
+<p style="margin-top:1rem;"><a href="{% url 'home' %}">← Back to Dashboard</a></p>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends "readiness/base.html" %}
+{% block title %}AMS Readiness — Dashboard{% endblock %}
+{% block content %}
+
+<h1>AMS Readiness Intake</h1>
+<p><strong>Deliverable 11 — Option C: Role-based submission slice</strong></p>
+
+<!-- ── Role selector ── -->
+<div class="role-bar">
+  <strong>Acting as:</strong>
+  {% if current_role %}
+    <span class="badge badge-role">{{ current_role.name }} — {{ current_role.role }}</span>
+  {% else %}
+    <span style="color:#888;">(no role selected)</span>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="set_role" value="1">
+    <select name="role_id">
+      <option value="">— switch role —</option>
+      {% for r in all_roles %}
+        <option value="{{ r.pk }}" {% if current_role and current_role.pk == r.pk %}selected{% endif %}>
+          {{ r.name }} ({{ r.role }})
+        </option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-secondary">Switch</button>
+  </form>
+</div>
+
+<!-- ── Last submission result ── -->
+{% if last_result %}
+  {% if last_result.success %}
+    <div class="alert alert-success"><strong>✔ Submitted:</strong> {{ last_result.message }}</div>
+  {% else %}
+    <div class="alert alert-error"><strong>✖ Submission rejected:</strong> {{ last_result.error }}</div>
+  {% endif %}
+{% endif %}
+
+<!-- ── Assessment status ── -->
+{% if assessment %}
+  <h2>Assessment #{{ assessment.pk }}</h2>
+  <table style="width:auto;">
+    <tr class="status-row"><td>Status</td>
+      <td>
+        {% if assessment.status == "Submitted" %}
+          <span class="badge badge-submitted">Submitted</span>
+        {% else %}
+          <span class="badge badge-draft">Draft</span>
+        {% endif %}
+      </td>
+    </tr>
+    <tr class="status-row"><td>Created by</td><td>{{ assessment.created_by }}</td></tr>
+    <tr class="status-row"><td>Created on</td><td>{{ assessment.created_at }}</td></tr>
+    {% if assessment.submitted_by %}
+    <tr class="status-row"><td>Submitted by</td><td>{{ assessment.submitted_by }}</td></tr>
+    <tr class="status-row"><td>Submitted at</td><td>{{ assessment.submitted_at }}</td></tr>
+    {% endif %}
+  </table>
+{% else %}
+  <p class="alert alert-info">No assessment found. Run <code>python manage.py seed_data</code> to create seed data.</p>
+{% endif %}
+
+<!-- ── Critical questions missing valid evidence ── -->
+{% if missing %}
+  <div class="alert alert-error">
+    <strong>⚠ {{ missing|length }} critical question(s) are not ready for submission:</strong>
+    <ul class="missing-list" style="margin-top:.5rem;">
+      {% for item in missing %}
+        <li><strong>[{{ item.question.category }}]</strong> {{ item.question.text }} — <em>{{ item.reason }}</em></li>
+      {% endfor %}
+    </ul>
+  </div>
+{% elif assessment and assessment.status == "Draft" %}
+  <div class="alert alert-success">✔ All critical questions have fresh evidence — ready to submit.</div>
+{% endif %}
+
+<!-- ── Readiness questions table ── -->
+<h2>Readiness Questions</h2>
+{% if question_data %}
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Question</th>
+      <th>Critical</th>
+      <th>Response</th>
+      <th>Evidence</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in question_data %}
+    <tr>
+      <td>{{ item.question.category }}</td>
+      <td>{{ item.question.text }}</td>
+      <td>{% if item.question.is_critical %}<span class="badge badge-critical">Yes</span>{% else %}No{% endif %}</td>
+      <td>
+        {% if item.answer %}
+          <strong>{{ item.answer.response }}</strong>
+          {% if item.answer.note %}<br><small>{{ item.answer.note }}</small>{% endif %}
+        {% else %}
+          <span style="color:#aaa;">—</span>
+        {% endif %}
+      </td>
+      <td>
+        {% if item.answer %}
+          {% if item.evidence_count == 0 %}
+            <span style="color:#cc0000;">None</span>
+          {% elif item.has_fresh_evidence %}
+            <span class="badge badge-ok">{{ item.evidence_count }} item(s) — fresh</span>
+          {% else %}
+            <span class="badge badge-critical">{{ item.evidence_count }} item(s) — ALL STALE</span>
+          {% endif %}
+        {% else %}
+          <span style="color:#aaa;">—</span>
+        {% endif %}
+      </td>
+      <td>
+        <a class="action-link" href="{% url 'answer_question' item.question.pk %}">
+          {% if item.answer %}Edit{% else %}Answer{% endif %}
+        </a>
+        {% if item.answer %}
+          &nbsp;·&nbsp;
+          <a class="action-link" href="{% url 'add_evidence' item.answer.pk %}">Add Evidence</a>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p>No questions yet. Run <code>python manage.py seed_data</code>.</p>
+{% endif %}
+
+<!-- ── Submit button ── -->
+{% if assessment and assessment.status == "Draft" %}
+  <h2>Submit Assessment</h2>
+  {% if current_role %}
+    <form method="post" action="{% url 'submit_assessment' %}">
+      {% csrf_token %}
+      <p>
+        You are acting as <strong>{{ current_role.name }} ({{ current_role.role }})</strong>.
+        {% if current_role.role == "Transition Lead" %}
+          Only a Transition Lead may submit.
+        {% else %}
+          <span style="color:#cc0000;">Only a Transition Lead may submit — your role will be rejected.</span>
+        {% endif %}
+      </p>
+      <button type="submit" class="btn btn-danger">Submit Assessment</button>
+    </form>
+  {% else %}
+    <p class="alert alert-info">Select a role above before submitting.</p>
+  {% endif %}
+{% elif assessment and assessment.status == "Submitted" %}
+  <div class="alert alert-success" style="margin-top:1.5rem;">
+    ✔ This assessment has been submitted. No further changes are possible.
+  </div>
+{% endif %}
+
+{% endblock %}

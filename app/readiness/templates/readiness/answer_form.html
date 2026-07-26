@@ -1,0 +1,81 @@
+{% extends "readiness/base.html" %}
+{% block title %}Answer Question — AMS Readiness{% endblock %}
+{% block content %}
+
+<h1>Answer: Readiness Question</h1>
+
+<p>
+  <strong>Category:</strong> {{ question.category }}&nbsp;&nbsp;
+  <strong>Critical:</strong> {% if question.is_critical %}Yes{% else %}No{% endif %}
+</p>
+<p><strong>Question:</strong> {{ question.text }}</p>
+
+{% if current_role %}
+  <p><span class="badge badge-role">Acting as: {{ current_role.name }} ({{ current_role.role }})</span></p>
+{% else %}
+  <p class="alert alert-info">No role selected — return to <a href="{% url 'home' %}">Dashboard</a> to choose one.</p>
+{% endif %}
+
+<!-- ── Answer form ── -->
+<h2>{% if existing_answer %}Edit Answer{% else %}Submit Answer{% endif %}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.question }}  {# hidden field #}
+
+  {% if form.non_field_errors %}
+    <ul class="errorlist">{% for e in form.non_field_errors %}<li>{{ e }}</li>{% endfor %}</ul>
+  {% endif %}
+
+  <label for="{{ form.response.id_for_label }}">Response (REQ-002)</label>
+  {{ form.response }}
+  {% if form.response.errors %}<ul class="errorlist">{% for e in form.response.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+
+  <label for="{{ form.note.id_for_label }}">Note (optional)</label>
+  {{ form.note }}
+
+  <br><br>
+  <button type="submit" class="btn btn-primary">Save Answer</button>
+  <a href="{% url 'home' %}" class="btn btn-secondary" style="margin-left:.5rem;">Cancel</a>
+</form>
+
+<!-- ── Evidence section ── -->
+{% if existing_answer %}
+<h2>Evidence Attached <small>({{ evidence_items|length }} item(s))</small></h2>
+{% if evidence_items %}
+<table>
+  <thead>
+    <tr><th>Source</th><th>Owner</th><th>Freshness Date</th><th>Reference</th><th>Staleness</th></tr>
+  </thead>
+  <tbody>
+    {% for ev in evidence_items %}
+    <tr>
+      <td>{{ ev.source }}</td>
+      <td>{{ ev.owner }}</td>
+      <td>{{ ev.freshness_date }}</td>
+      <td>{{ ev.reference }}</td>
+      <td>
+        {% if ev.is_stale %}
+          <span class="badge badge-critical">STALE (&gt;90 days)</span>
+        {% else %}
+          <span class="badge badge-ok">Fresh</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p style="color:#888;">No evidence yet.</p>
+{% endif %}
+
+<p>
+  <a href="{% url 'add_evidence' existing_answer.pk %}" class="btn btn-primary" style="margin-top:.5rem;">
+    + Add Evidence
+  </a>
+</p>
+{% else %}
+  <p class="alert alert-info">Save the answer first to attach evidence.</p>
+{% endif %}
+
+<p><a href="{% url 'home' %}">← Back to Dashboard</a></p>
+{% endblock %}
