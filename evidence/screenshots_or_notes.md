@@ -12,8 +12,9 @@
   ("not answered" / "no evidence attached" / "evidence is stale").
 - A "Submit final assessment" button/form, only meaningful when acting as Transition Lead.
 
-![dashboard](../images/Dashboard1.svg)
-![dashboard](../images/Dashboard2.svg)
+![dashboard](../images/Dashboard1.png)
+
+![dashboard](../images/Dashboard2.png)
 
 ## 2. Answer a question
 
@@ -23,15 +24,18 @@
   button.
 - **First visit (no existing answer):** heading reads "Submit Answer"; evidence section shows 
   "Save the answer first to attach evidence."
-![answer](../images/answer1.svg)
+  
+![answer](../images/answer1.png)
+
 - **After saving:** heading changes to "Edit Answer"; an "Evidence Attached (0 item(s))" section 
   appears with a "+ Add Evidence" button, since an `Answer` row now exists.
-![answer](../images/answer2.svg)
+  
+![answer](../images/answer2.png)
+
 - **Re-visiting an already-answered question:** the response dropdown is pre-filled with the 
   saved value (form bound to `instance=existing`); saving again updates the same row and logs 
   an `AuditLog` entry with `action_type="UPDATE"` and the previous response as `old_value` 
   (per the manual fix applied — see Deliverable 11).
-![answer](../images/answer3.svg)
 
 ## 3. Attach evidence
 
@@ -45,21 +49,27 @@
   - "STALE (>90 days)" (red) if more than 90 days old — matches TC-005 (exactly 90 = Fresh) and 
     TC-006 (91 days = Stale).
 - An `AuditLog` entry is written with `action_type="CREATE"`, `entity_type="Evidence"`.
-![evidence](../images/evidence.svg)
+
+![evidence](../images/evidence1.png)
 
 ## 4. Submit assessment
 
 - **Acting as Contributor (or any non-Transition-Lead role) and attempting to submit:** request 
   is rejected; an authorization error message is shown ("Role 'Contributor' is not authorized to submit the assessment."); assessment status remains "Draft" — matches TC-008.
-![submit](../images/submit2.svg)
+
+![submit](../images/submit2.png)
+
 - **Acting as Transition Lead, with at least one critical question missing/stale evidence:** 
   submission is blocked; the home page's missing-items list is shown/re-displayed with the 
   specific reason(s) — matches TC-004.
-![submit](../images/submit1.svg)
+
+![submit](../images/submit1.png)
+
 - **Acting as Transition Lead, all critical questions answered with fresh evidence:** assessment 
   status changes to "Submitted"; `submitted_by` and `submitted_at` are recorded; an `AuditLog` 
   entry logs the status change (`old_value="Draft"`, `new_value="Submitted"`) — matches TC-002.
-![submit](../images/submit3.svg)
+
+![submit](../images/submit3.png)
 
 ## 5. Summary view
 
@@ -69,8 +79,10 @@
   matches TC-009 (summary) and TC-010 (audit entries visible).
 - No edit or delete controls exist anywhere on this page for `AuditLog` rows — there is no such 
   view/URL in `readiness/urls.py`, so entries are read-only by construction, matching TC-011/REQ-012.
-![summary](../images/summary1.svg)
-![summary](../images/summary2.svg)
+
+![summary](../images/summary1.png)
+
+![summary](../images/summary2.png)
 
 ## 6. Django admin (`/admin/`)
 
@@ -78,4 +90,5 @@
   `/admin/` URL — see Deliverable 11 Manual changes), logging in with the superuser created via 
   `createsuperuser` shows all 6 registered models (`UserRole`, `Assessment`, `ReadinessQuestion`, 
   `Answer`, `Evidence`, `AuditLog`), useful for quickly inspecting the underlying data.
-![admin](../images/admin.svg)
+
+![admin](../images/admin.png)
