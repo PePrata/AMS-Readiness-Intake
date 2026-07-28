@@ -68,7 +68,7 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
   - AC-2: Evidence exactly 90 days old or fresher is not flagged as stale.
 - Validation method: Test
 
-### REQ-004a - Flag missing critical information
+### REQ-004b - Flag missing critical information
 - Type: Functional
 - Stakeholder: Transition Lead, AMS Manager
 - Priority: High
