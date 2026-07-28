@@ -56,16 +56,28 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
   - AC-2: Multiple evidence items can be linked to the same answer.
 - Validation method: Test
 
-### REQ-004 - Flag missing or stale critical evidence
+### REQ-004a - Flag stale evidence
 - Type: Functional
 - Stakeholder: Transition Lead, AMS Manager
 - Priority: High
-- Description: The system must automatically flag evidence older than 90 days as stale, and flag critical readiness questions with no evidence as missing.
+- Description: The system must automatically flag evidence with a freshness date more than 90 days old as stale.
 - Linked objective: OBJ-03
 - Linked CSF: CSF-03
 - Acceptance Criteria:
-  - AC-1: Evidence with a freshness date older than 90 days is visually flagged as stale.
-  - AC-2: Critical questions without linked evidence are listed as "missing critical information".
+  - AC-1: Evidence with a freshness date more than 90 days old is visually flagged as stale.
+  - AC-2: Evidence exactly 90 days old or fresher is not flagged as stale.
+- Validation method: Test
+
+### REQ-004a - Flag missing critical information
+- Type: Functional
+- Stakeholder: Transition Lead, AMS Manager
+- Priority: High
+- Description: The system must flag critical readiness questions that have no answer, or no valid (non-stale) evidence, as missing critical information.
+- Linked objective: OBJ-03
+- Linked CSF: CSF-03
+- Acceptance Criteria:
+  - AC-1: A critical question with no answer is listed as missing.
+  - AC-2: A critical question answered but with no evidence, or only stale evidence, is listed as missing.
 - Validation method: Test
 
 ### REQ-005 - Restrict final submission to the Transition Lead role
@@ -84,11 +96,11 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
 - Type: Functional
 - Stakeholder: Transition Lead, AMS Manager
 - Priority: Medium
-- Description: The system must generate a summary view listing all missing/stale critical items and a recommended list of actions for the first 90 days.
+- Description: The system must generate a summary view listing all missing/stale critical items, where each item's recommended action is a fixed mapping from its reason code (e.g. "not answered" → "Answer this readiness question"; "no evidence" → "Attach supporting evidence"; "evidence is stale" → "Replace evidence with a source no more than 90 days old").
 - Linked objective: OBJ-03
 - Linked CSF: CSF-03
 - Acceptance Criteria:
-  - AC-1: The summary lists every missing or stale critical item found in the assessment.
+  - AC-1: The summary lists every missing or stale critical item found in the assessment, each with exactly one recommended action drawn from the fixed reason-to-action mapping.
   - AC-2: The summary is viewable by Transition Lead and AMS Manager roles.
 - Validation method: Demo
 
@@ -119,12 +131,12 @@ CSF-03 - Missing or stale critical information is automatically flagged so gaps 
 - Type: Non-functional
 - Stakeholder: Contributor
 - Priority: Medium
-- Description: A Contributor must be able to complete an intake answer with evidence metadata in at most 5 steps/interactions.
+- Description: A Contributor must be able to complete one readiness answer, including its evidence metadata, in at most 5 discrete screen submissions.
 - Linked objective: OBJ-01
 - Linked CSF: CSF-01
 - Acceptance Criteria:
-  - AC-1: Completing one readiness answer with evidence requires 5 or fewer user interactions.
-  - AC-2: No external documentation required to complete the task.
+  - AC-1: Completing one readiness answer with evidence requires 5 or fewer discrete form/screen submissions (each page load that ends in a "Save"/"Submit" action counts as one interaction; filling multiple fields within the same submission does not count as separate interactions).
+  - AC-2: No external documentation is required to complete the task.
 - Validation method: Review
 
 ### REQ-010 - Persistence constraint

@@ -28,9 +28,9 @@
 | MIC-001 | A new assessment starts with status "Draft"                                                            | MEZ-001       | REQ-001     |
 | MIC-002 | Each readiness question is answered Yes/No/Partial with an optional note                               | MEZ-002       | REQ-002     |
 | MIC-003 | Evidence source, owner and freshness date are mandatory fields                                         | MEZ-003       | REQ-003     |
-| MIC-004 | Evidence older than 90 days must be flagged as stale                                                   | MEZ-005       | REQ-004     |
-| MIC-005 | Critical questions without linked evidence are listed as missing                                       | MEZ-005       | REQ-004     |
+| MIC-004 | Evidence with a freshness date more than 90 days old must be flagged as stale (90 days exactly = not stale) | MEZ-005   | REQ-004a    |
+| MIC-005 | Critical questions with no answer, or answered but with no evidence / only stale evidence, are listed as missing | MEZ-005 | REQ-004b |
 | MIC-006 | Only Transition Lead can submit the final assessment                                                   | MEZ-004       | REQ-005     |
 | MIC-007 | Every action is mapped to at least one permitted role                                                  | MEZ-004       | REQ-008     |
-| MIC-008 | The summary must present recommended actions ordered by criticality                                    | MEZ-006       | REQ-006     |
+| MIC-008 | Each missing/stale item in the summary is paired with exactly one recommended action, drawn from a fixed reason-to-action mapping (e.g. "no evidence" → "Attach supporting evidence") | MEZ-006 | REQ-006 |
 | MIC-009 | Summary calculation completes within 3 seconds for up to 50 questions/evidence items under normal load | MEZ-006       | REQ-007     |
